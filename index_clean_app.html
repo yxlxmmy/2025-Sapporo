@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <title>2025 삿포로 3박 4일 플래너</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #0b1220;
+      --card-soft: #111827;
+      --accent: #38bdf8;
+      --accent-soft: rgba(56, 189, 248, 0.08);
+      --accent-strong: #f97316;
+      --text-main: #e5e7eb;
+      --text-sub: #9ca3af;
+      --divider: #1f2937;
+      --radius-lg: 22px;
+      --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.7);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", system-ui,
+        -system-ui, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top, rgba(56, 189, 248, 0.24), transparent 60%),
+        radial-gradient(circle at bottom, rgba(248, 250, 252, 0.08), transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .app {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 18px 14px 32px;
+    }
+
+    /* HEADER */
+
+    header {
+      background: radial-gradient(circle at top left, #1f2937, #020617);
+      border-radius: 26px;
+      padding: 18px 18px 16px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.32), transparent 65%);
+      top: -120px;
+      right: -40px;
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-left {
+      max-width: 100%;
+    }
+
+    .trip-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.78);
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      color: var(--text-sub);
+      font-size: 0.78rem;
+      backdrop-filter: blur(6px);
+    }
+
+    .trip-tag span {
+      font-size: 0.9rem;
+    }
+
+    .hero-emoji {
+      font-size: 1rem;
+    }
+
+    h1 {
+      margin: 8px 0 4px;
+      font-size: 1.7rem;
+      letter-spacing: -0.03em;
+      color: #f9fafb;
+    }
+
+    .hero-sub {
+      margin: 0;
+      font-size: 0.9rem;
+      color: var(--text-sub);
+    }
+
+    .hero-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .hero-chip {
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-sub);
+    }
+
+    .hero-chip strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .hero-stats {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .stat-card {
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 16px;
+      padding: 7px 10px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+    }
+
+    .stat-label {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-sub);
+      margin-bottom: 2px;
+    }
+
+    .stat-value {
+      font-size: 0.95rem;
+      color: #e5e7eb;
+    }
+
+    /* LAYOUT */
+
+    @media (min-width: 900px) {
+      .app-inner {
+        display: grid;
+        grid-template-columns: 230px minmax(0, 1fr);
+        column-gap: 20px;
+        align-items: flex-start;
+        margin-top: 16px;
+      }
+
+      header {
+        margin-bottom: 16px;
+      }
+    }
+
+    @media (max-width: 899px) {
+      .app-inner {
+        margin-top: 14px;
+      }
+    }
+
+    /* TABS */
+
+    .tabs {
+      margin-bottom: 12px;
+    }
+
+    .tab-bar {
+      display: flex;
+      gap: 8px;
+      padding: 8px;
+      background: rgba(15, 23, 42, 0.9);
+      border-radius: 18px;
+      border: 1px solid rgba(31, 41, 55, 0.9);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .tab-bar::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .tab-bar::-webkit-scrollbar-thumb {
+      background: rgba(75, 85, 99, 0.9);
+      border-radius: 999px;
+    }
+
+    .tab-btn {
+      flex: 0 0 auto;
+      min-width: 82px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      cursor: pointer;
+      transition: 0.18s ease;
+    }
+
+    .tab-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: rgba(75, 85, 99, 0.7);
+    }
+
+    .tab-label {
+      font-weight: 500;
+    }
+
+    .tab-sub {
+      font-size: 0.7rem;
+      opacity: 0.8;
+    }
+
+    .tab-btn.active {
+      background: var(--accent-soft);
+      border-color: rgba(56, 189, 248, 0.8);
+      color: #e0f2fe;
+      box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.8);
+    }
+
+    .tab-btn.active .tab-dot {
+      background: var(--accent);
+    }
+
+    @media (min-width: 900px) {
+      .tabs {
+        position: sticky;
+        top: 16px;
+        height: fit-content;
+      }
+
+      .tab-bar {
+        flex-direction: column;
+        max-height: calc(100vh - 120px);
+      }
+
+      .tab-btn {
+        width: 100%;
+        justify-content: flex-start;
+      }
+    }
+
+    /* PANELS */
+
+    .panels {
+      position: relative;
+    }
+
+    .panel {
+      display: none;
+      background: rgba(15, 23, 42, 0.92);
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 16px 18px;
+      animation: fadeIn 0.18s ease-out;
+    }
+
+    .panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .panel-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .panel-pill {
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      font-size: 0.72rem;
+      color: var(--text-sub);
+    }
+
+    .panel-title-main {
+      font-weight: 600;
+      color: #f9fafb;
+    }
+
+    .panel-date {
+      font-size: 0.82rem;
+      color: var(--accent);
+    }
+
+    .section {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px solid var(--divider);
+    }
+
+    .section:first-of-type {
+      border-top: none;
+      padding-top: 0;
+      margin-top: 4px;
+    }
+
+    .section-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-label-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: var(--accent-strong);
+    }
+
+    .card {
+      background: var(--card-soft);
+      border-radius: 14px;
+      padding: 8px 10px 7px;
+      border: 1px solid rgba(31, 41, 55, 0.95);
+      margin-bottom: 6px;
+    }
+
+    .time-row {
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      font-size: 0.9rem;
+    }
+
+    .time {
+      font-weight: 600;
+      color: #e5e7eb;
+      min-width: 44px;
+    }
+
+    .place {
+      color: #e5e7eb;
+    }
+
+    .meta {
+      margin-top: 2px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-top: 5px;
+    }
+
+    .pill {
+      padding: 2px 7px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      color: var(--text-sub);
+    }
+
+    .pill strong {
+      color: #e5e7eb;
+      font-weight: 600;
+    }
+
+    .note {
+      margin-top: 4px;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+    }
+
+    .grid-two {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.85);
+      border: 1px solid rgba(55, 65, 81, 0.95);
+      font-size: 0.76rem;
+      color: var(--text-sub);
+      margin-bottom: 6px;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        border-radius: 22px;
+      }
+
+      .panel {
+        border-radius: 18px;
+        padding: 14px 12px 16px;
+      }
+
+      h1 {
+        font-size: 1.45rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="hero-top">
+        <div class="hero-left">
+          <div class="trip-tag">
+            <span class="hero-emoji">❄️</span>
+            <span>겨울 홋카이도 · 3박 4일</span>
+          </div>
+          <h1>2025 삿포로 여행 플래너</h1>
+          <p class="hero-sub">12/21(일) ~ 12/24(수) · 오타루 · 비에이 · 삿포로 · 온천 료칸</p>
+          <div class="hero-chips">
+            <div class="hero-chip"><strong>Day 1</strong> 인천 → 오타루 → 삿포로</div>
+            <div class="hero-chip"><strong>Day 2</strong> 비에이 눈꽃 투어</div>
+            <div class="hero-chip"><strong>Day 3</strong> 삿포로역 · 스텔라플레이스 · 미도리노카제</div>
+            <div class="hero-chip"><strong>Day 4</strong> 공항 면세 &amp; 귀국</div>
+          </div>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-label">여행 기간</div>
+          <div class="stat-value">3박 4일</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">베이스 숙소</div>
+          <div class="stat-value">리포르트 삿포로 · 미도리노카제</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">키워드</div>
+          <div class="stat-value">산책 · 맛집 · 온천</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-inner">
+      <aside class="tabs">
+        <div class="tab-bar">
+          <button class="tab-btn active" data-tab-target="overview">
+            <span class="tab-dot"></span>
+            <div>
+              <div class="tab-label">요약</div>
+              <div class="tab-sub">항공 · 숙소</div>
+            </div>
+          </button>
+          <button class="tab-btn" data-tab-target="day1">
+            <span class="tab-dot"></span>
+            <div>
+              <div class="tab-label">Day 1</div>
+              <div class="tab-sub">오타루 산책</div>
+            </div>
+          </button>
+          <button class="tab-btn" data-tab-target="day2">
+            <span class="tab-dot"></span>
+            <div>
+              <div class="tab-label">Day 2</div>
+              <div class="tab-sub">비에이 투어</div>
+            </div>
+          </button>
+          <button class="tab-btn" data-tab-target="day3">
+            <span class="tab-dot"></span>
+            <div>
+              <div class="tab-label">Day 3</div>
+              <div class="tab-sub">삿포로 &amp; 온천</div>
+            </div>
+          </button>
+          <button class="tab-btn" data-tab-target="day4">
+            <span class="tab-dot"></span>
+            <div>
+              <div class="tab-label">Day 4</div>
+              <div class="tab-sub">귀국</div>
+            </div>
+          </button>
+          <button class="tab-btn" data-tab-target="notes">
+            <span class="tab-dot"></span>
+            <div>
+              <div class="tab-label">메모</div>
+              <div class="tab-sub">세이코마트 · 쇼핑</div>
+            </div>
+          </button>
+        </div>
+      </aside>
+
+      <main class="panels">
+        <!-- OVERVIEW -->
+        <section class="panel active" id="overview" data-tab-panel>
+          <div class="panel-title">
+            <span class="panel-pill">📌 요약</span>
+            <span class="panel-title-main">여행 기본 정보</span>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              항공편
+            </div>
+            <div class="grid-two">
+              <div class="card">
+                <div class="badge">가는 편 · 12/21(일)</div>
+                <div class="time-row">
+                  <span class="time">ZE621</span>
+                  <span class="place">인천(ICN) 07:40 → 신치토세(CTS) 10:20</span>
+                </div>
+                <div class="meta">이스타항공 · 위탁 수하물 15kg 1개</div>
+              </div>
+              <div class="card">
+                <div class="badge">오는 편 · 12/24(수)</div>
+                <div class="time-row">
+                  <span class="time">ZE624</span>
+                  <span class="place">신치토세 18:05 → 인천 21:20</span>
+                </div>
+                <div class="meta">이스타항공 · 공항 도착 후 면세 쇼핑 여유</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              숙소
+            </div>
+            <div class="grid-two">
+              <div class="card">
+                <div class="badge">12/21(일) ~ 12/23(화) · 2박</div>
+                <div class="time-row">
+                  <span class="time">삿포로</span>
+                  <span class="place">호텔 리포르트 삿포로 (Hotel Lifort Sapporo)</span>
+                </div>
+                <div class="meta">
+                  트윈 · 조식 포함 · 체크인 15:00 · 체크아웃 11:00<br />
+                  주소: 1 Chome-1-30 Minami 10 Jonishi, Chuo Ward, Sapporo
+                </div>
+              </div>
+              <div class="card">
+                <div class="badge">12/23(화) ~ 12/24(수) · 1박</div>
+                <div class="time-row">
+                  <span class="time">온천</span>
+                  <span class="place">미도리노카제 리조트 기타유자와</span>
+                </div>
+                <div class="meta">
+                  조식 + 석식 + 삿포로역 왕복 셔틀 포함<br />
+                  주소: 300-2 Otakiku Kitayuzawaonsencho, Date
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              주요 이동
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">12/21</span>
+                <span class="place">쾌속 에어포트 53 · 신치토세 → 오타루</span>
+              </div>
+              <div class="meta">10:50 출발 · ~12:04 도착 · 약 JP¥ 2,880</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">12/21</span>
+                <span class="place">쾌속 에어포트 156 · 미나미오타루 → 삿포로</span>
+              </div>
+              <div class="meta">17:33 출발 · 18:08 도착 · 약 JP¥ 1,640</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">12/24</span>
+                <span class="place">쾌속 에어포트 116 · 삿포로 → 신치토세</span>
+              </div>
+              <div class="meta">14:30 출발 · 15:06 도착 (체크인·쇼핑 여유)</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              캐리어 &amp; 락커
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">KKday</span>
+                <span class="place">공항 → 호텔 캐리어 이동 서비스</span>
+              </div>
+              <div class="meta">
+                오타루 이동 시 작은 짐만 들고 이동<br />
+                상품 링크: <a href="https://www.kkday.com/ko/product/200343" target="_blank" rel="noreferrer">KKday 공항 캐리어 이동</a>
+              </div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">삿포로역</span>
+                <span class="place">코인락커 (1F &amp; B1F)</span>
+              </div>
+              <div class="meta">
+                소형 400엔대 · 중형 500엔대 · 대형 600~800엔 정도<br />
+                TIP: 락커 위치 &amp; 번호 사진 찍어두기
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DAY 1 -->
+        <section class="panel" id="day1" data-tab-panel>
+          <div class="panel-title">
+            <span class="panel-pill">Day 1</span>
+            <span class="panel-title-main">인천 → 신치토세 → 오타루 → 삿포로</span>
+            <span class="panel-date">12/21 (일)</span>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              아침 · 출국
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">05:00</span>
+                <span class="place">인천공항 도착 · 수속</span>
+              </div>
+              <div class="meta">수하물 무게 체크 &amp; 탑승구 여유 있게 이동</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">07:40</span>
+                <span class="place">ZE621 인천 출발</span>
+              </div>
+              <div class="meta">기내에서 간단히 휴식</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">10:20</span>
+                <span class="place">신치토세 공항 도착</span>
+              </div>
+              <div class="meta">입국 심사 · 교통카드/티켓 준비</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              신치토세 → 오타루
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">10:50</span>
+                <span class="place">쾌속 에어포트 53 · 신치토세 → 오타루</span>
+              </div>
+              <div class="meta">~12:04 오타루역 도착 · 지정석 확인</div>
+              <div class="pill-row">
+                <div class="pill"><strong>소요</strong> 약 1시간 15분</div>
+                <div class="pill">눈 오는지 창밖 보기</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              오타루 산책 &amp; 맛집
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">12:15</span>
+                <span class="place">점심 · 에다칸(Edakan) 카이센동</span>
+              </div>
+              <div class="meta">
+                3 Chome-15-7 Inaho, Otaru · 웨이팅 있으면 주변 구경하며 대기
+              </div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">13:00</span>
+                <span class="place">오타루 운하 산책 &amp; 사진</span>
+              </div>
+              <div class="meta">눈 오는 운하 풍경 찍기 좋음</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">14:00</span>
+                <span class="place">오르골당 &amp; 거리 구경</span>
+              </div>
+              <div class="meta">기념품, 작은 소품 천천히 둘러보기</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">15:30</span>
+                <span class="place">르타오 파토스(LeTAO PATHOS) 카페</span>
+              </div>
+              <div class="meta">치즈케이크 &amp; 디저트 타임</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">16:30</span>
+                <span class="place">기타이치 유리 3호관</span>
+              </div>
+              <div class="meta">유리 소품, 조명 구경 · 간식으로 고로케 등</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              저녁 · 삿포로 이동
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">17:33</span>
+                <span class="place">쾌속 에어포트 156 · 미나미오타루 → 삿포로</span>
+              </div>
+              <div class="meta">18:08 삿포로역 도착</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">19:00</span>
+                <span class="place">야키니쿠 · 츠바메</span>
+              </div>
+              <div class="meta">첫날 저녁 든든하게 고기 먹기</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">21:00</span>
+                <span class="place">메가 돈키호테 1차 쇼핑</span>
+              </div>
+              <div class="meta">스스키노/다누키코지 점 · 간단 기념품 &amp; 간식</div>
+            </div>
+            <div class="note">쇼핑 후 호텔 리포르트 삿포로 체크인 · 취침</div>
+          </div>
+        </section>
+
+        <!-- DAY 2 -->
+        <section class="panel" id="day2" data-tab-panel>
+          <div class="panel-title">
+            <span class="panel-pill">Day 2</span>
+            <span class="panel-title-main">비에이 눈꽃 투어 &amp; 이자카야</span>
+            <span class="panel-date">12/22 (월)</span>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              오전 · 투어 집합
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">아침</span>
+                <span class="place">호텔 조식 후 비에이 투어 준비</span>
+              </div>
+              <div class="meta">방한 준비 체크: 패딩, 장갑, 핫팩, 목도리 등</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">집합</span>
+                <span class="place">삿포로 시내 투어 집합 장소로 이동</span>
+              </div>
+              <div class="meta">바우처/집합 시간은 투어 페이지 기준으로 확인</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              낮 · 비에이·후라노 코스
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">DAY</span>
+                <span class="place">눈 덮인 언덕 &amp; 포토 스팟들</span>
+              </div>
+              <div class="meta">
+                청의 호수, 흰수염 폭포 등 대표 스팟 이동<br />
+                가이드 설명 들으면서 사진 + 영상 위주로 기록
+              </div>
+              <div class="pill-row">
+                <div class="pill"><strong>TIP</strong> 외부는 눈길 많으니 미끄럼 주의</div>
+                <div class="pill">카메라/폰 배터리 방전 대비 보조배터리</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              저녁 · 삿포로 복귀
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">저녁</span>
+                <span class="place">투어 종료 후 삿포로 시내 복귀</span>
+              </div>
+              <div class="meta">숙소 근처에서 잠깐 휴식</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">이자카야</span>
+                <span class="place">현지 이자카야에서 맥주 &amp; 안주</span>
+              </div>
+              <div class="meta">오뎅, 사시미, 가라아게 등 가볍게 즐기기</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DAY 3 -->
+        <section class="panel" id="day3" data-tab-panel>
+          <div class="panel-title">
+            <span class="panel-pill">Day 3</span>
+            <span class="panel-title-main">삿포로역 · 스텔라플레이스 · 미도리노카제</span>
+            <span class="panel-date">12/23 (화)</span>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              오전 · 체크아웃 &amp; 삿포로역
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">아침</span>
+                <span class="place">호텔 조식 · 짐 정리</span>
+              </div>
+              <div class="meta">온천 료칸 갈 짐만 따로 정리</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">10:00</span>
+                <span class="place">호텔 리포르트 삿포로 체크아웃</span>
+              </div>
+              <div class="meta">여유 있게 준비 후 지하철로 삿포로역 이동</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">AM</span>
+                <span class="place">삿포로역 도착 · 코인락커에 캐리어 보관</span>
+              </div>
+              <div class="meta">
+                큰 캐리어는 코인락커/보관소에 맡기고, 가벼운 짐만 들고 다니기
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              점심 · 스텔라플레이스
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">11:00</span>
+                <span class="place">삿포로 스텔라플레이스 6층 점심</span>
+              </div>
+              <div class="meta">
+                쇼핑몰 6층 레스토랑 층에서 점심 · 메뉴는 현장에서 결정
+              </div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">점심 후</span>
+                <span class="place">삿포로역 주변 자유 시간</span>
+              </div>
+              <div class="meta">
+                에스타/다이마루/특산품 상점 천천히 구경 · 카페에서 커피 한 잔
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              오후 · 미도리노카제 셔틀
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">13:00 전</span>
+                <span class="place">삿포로역 북쪽 출구 근처로 이동</span>
+              </div>
+              <div class="meta">셔틀 승차 위치 미리 확인 · 여유 있게 도착</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">13:30</span>
+                <span class="place">미도리노카제 리조트 셔틀버스 탑승</span>
+              </div>
+              <div class="meta">약 2시간 이동 · 창밖 풍경 보면서 쉬기</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              저녁 · 온천 &amp; 석식
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">체크인</span>
+                <span class="place">미도리노카제 리조트 도착</span>
+              </div>
+              <div class="meta">체크인 후 객실에서 잠깐 휴식</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">석식</span>
+                <span class="place">료칸 석식 코스</span>
+              </div>
+              <div class="meta">식사 시간은 체크인 시 안내에 맞춰 이동</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">밤</span>
+                <span class="place">온천 &amp; 실내 시설 즐기기</span>
+              </div>
+              <div class="meta">노천탕 · 실내탕 여유롭게 즐기고 일찍 취침</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- DAY 4 -->
+        <section class="panel" id="day4" data-tab-panel>
+          <div class="panel-title">
+            <span class="panel-pill">Day 4</span>
+            <span class="panel-title-main">미도리노카제 → 삿포로 → 공항 → 인천</span>
+            <span class="panel-date">12/24 (수)</span>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              오전 · 체크아웃 &amp; 셔틀
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">아침</span>
+                <span class="place">조식 · 가볍게 온천 한 번 더</span>
+              </div>
+              <div class="meta">체크아웃 전 마지막으로 온천 즐기기</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">10:00</span>
+                <span class="place">미도리노카제 출발 셔틀 · 삿포로역행</span>
+              </div>
+              <div class="meta">약 2시간 이동 · 12:30 전후 삿포로 도착 가정</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              오후 · 공항 이동 &amp; 면세
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">12:30~</span>
+                <span class="place">삿포로역 주변 가벼운 점심 또는 간식</span>
+              </div>
+              <div class="meta">시간 여유에 따라 간단하게만 먹기</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">14:30</span>
+                <span class="place">쾌속 에어포트 116 · 삿포로 → 신치토세</span>
+              </div>
+              <div class="meta">15:06 도착 · 체크인 &amp; 보안검색 후 면세점 이동</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              저녁 · 귀국
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">18:05</span>
+                <span class="place">ZE624 신치토세 출발</span>
+              </div>
+              <div class="meta">탑승 전 공항 편의점/카페에서 간단 간식</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">21:20</span>
+                <span class="place">인천 도착</span>
+              </div>
+              <div class="meta">입국 수속 후 귀가</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- NOTES -->
+        <section class="panel" id="notes" data-tab-panel>
+          <div class="panel-title">
+            <span class="panel-pill">메모</span>
+            <span class="panel-title-main">세이코마트 · 쇼핑 리스트</span>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              세이코마트
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">추천</span>
+                <span class="place">파스타, 덮밥류, 핫스낵, 디저트</span>
+              </div>
+              <div class="meta">숙소 근처 세이코마트 들러서 야식/간식용으로 구매</div>
+              <div class="pill-row">
+                <div class="pill">콘소메 과자</div>
+                <div class="pill">컵라면 &amp; 우유</div>
+                <div class="pill">간단 맥주/츄하이</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              돈키호테 &amp; 드럭스토어
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">1차</span>
+                <span class="place">Day 1 밤 · 메가 돈키호테</span>
+              </div>
+              <div class="meta">기본 기념품·간식 먼저 구매</div>
+            </div>
+            <div class="card">
+              <div class="time-row">
+                <span class="time">예비</span>
+                <span class="place">나머지는 Day 2~3 사이에 여유 있을 때</span>
+              </div>
+              <div class="meta">드럭스토어(마츠모토키요시 등)에서 화장품·약류 체크</div>
+            </div>
+          </div>
+
+          <div class="section">
+            <div class="section-label">
+              <span class="section-label-dot"></span>
+              준비물 체크
+            </div>
+            <div class="card">
+              <div class="pill-row">
+                <div class="pill"><strong>방한</strong> 두꺼운 패딩 · 기모 이너</div>
+                <div class="pill">방수 부츠 · 미끄럼 방지</div>
+                <div class="pill">장갑 · 목도리 · 비니</div>
+                <div class="pill">핫팩 넉넉히</div>
+                <div class="pill">보조배터리 &amp; 여분 케이블</div>
+              </div>
+              <div class="note">필요하면 이 패널은 여행 직전에 최신 계획대로 자유롭게 수정해서 쓰면 됨.</div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    const tabButtons = document.querySelectorAll(".tab-btn");
+    const panels = document.querySelectorAll("[data-tab-panel]");
+
+    tabButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const targetId = btn.getAttribute("data-tab-target");
+        if (!targetId) return;
+
+        tabButtons.forEach((b) => b.classList.remove("active"));
+        panels.forEach((p) => p.classList.remove("active"));
+
+        btn.classList.add("active");
+        const targetPanel = document.getElementById(targetId);
+        if (targetPanel) {
+          targetPanel.classList.add("active");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
