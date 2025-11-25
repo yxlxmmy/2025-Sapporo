@@ -105,6 +105,7 @@
       gap: 6px;
       white-space: nowrap;
       transition: all 0.18s ease;
+      cursor: pointer;
     }
 
     .tab-link span.emoji {
@@ -123,9 +124,14 @@
       border-color: var(--primary);
     }
 
-    /* 패널 카드 */
+    /* 패널 카드 + 섹션 표시 제어 */
     section {
       margin-bottom: 24px;
+      display: none;          /* 기본은 안 보이게 */
+    }
+
+    section.active {
+      display: block;         /* 선택된 섹션만 보이게 */
     }
 
     .panel {
@@ -287,7 +293,7 @@
 
   <main class="page">
     <!-- 요약 패널 -->
-    <section id="summary">
+    <section id="summary" class="active">
       <div class="panel">
         <div class="panel-header">
           <div class="panel-emoji">📌</div>
@@ -765,5 +771,39 @@
       </div>
     </section>
   </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const tabs = document.querySelectorAll('.tab-link');
+      const sections = document.querySelectorAll('main section');
+
+      function showTab(targetId) {
+        sections.forEach(sec => {
+          if ('#' + sec.id === targetId) {
+            sec.classList.add('active');
+          } else {
+            sec.classList.remove('active');
+          }
+        });
+      }
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function (e) {
+          e.preventDefault();
+          const target = this.getAttribute('href');
+
+          // 탭 스타일 변경
+          tabs.forEach(t => t.classList.remove('primary'));
+          this.classList.add('primary');
+
+          // 섹션 표시 변경
+          showTab(target);
+        });
+      });
+
+      // 초기 상태: summary 탭만 보이도록
+      showTab('#summary');
+    });
+  </script>
 </body>
 </html>
