@@ -1,785 +1,769 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  <meta charset="UTF-8" />
+  <title>2025 삿포로 3박 4일 플래너</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    :root {
+      --bg: #e6f4ff;
+      --bg-alt: #ffffff;
+      --primary: #3ba4ff;
+      --primary-soft: #e0f2ff;
+      --accent: #ffb347;
+      --text-main: #16324f;
+      --text-sub: #506680;
+      --border-soft: #c9e3ff;
+      --shadow-soft: 0 10px 25px rgba(15, 76, 129, 0.12);
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        sans-serif;
+      background: linear-gradient(180deg, #dff2ff 0%, #f5fbff 40%, #ffffff 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    .page {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 24px 16px 56px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .title-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255, 255, 255, 0.9);
+      border: 1px solid var(--border-soft);
+      font-size: 12px;
+      color: var(--text-sub);
+      margin-bottom: 8px;
+    }
+
+    h1 {
+      font-size: 26px;
+      margin: 4px 0 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-sub);
+      margin: 0;
+    }
+
+    /* 탭 네비게이션 */
+    .tab-bar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(
+        90deg,
+        rgba(230, 244, 255, 0.92),
+        rgba(239, 248, 255, 0.96)
+      );
+      padding: 10px 0 12px;
+      margin-bottom: 20px;
+    }
+
+    .tab-bar-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 16px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+    }
+
+    .tab-link {
+      flex: 0 0 auto;
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      border: 1px solid transparent;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-sub);
+      font-size: 13px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      white-space: nowrap;
+      transition: all 0.18s ease;
+    }
+
+    .tab-link span.emoji {
+      font-size: 15px;
+    }
+
+    .tab-link:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #ffffff;
+    }
+
+    .tab-link.primary {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary);
+    }
+
+    /* 패널 카드 */
+    section {
+      margin-bottom: 24px;
+    }
+
+    .panel {
+      background: var(--bg-alt);
+      border-radius: var(--radius-lg);
+      padding: 20px 18px 18px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid rgba(255, 255, 255, 0.6);
+    }
+
+    .panel-header {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .panel-emoji {
+      font-size: 22px;
+    }
+
+    .panel-title {
+      font-size: 18px;
+      font-weight: 700;
+    }
+
+    .panel-date {
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .pill-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      background: var(--primary-soft);
+      color: var(--primary);
+      font-size: 12px;
+      margin: 4px 0 8px;
+    }
+
+    h3 {
+      font-size: 15px;
+      margin: 14px 0 6px;
+    }
+
+    h4 {
+      font-size: 14px;
+      margin: 10px 0 4px;
+    }
+
+    p {
+      margin: 3px 0;
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      background: #eef7ff;
+      color: var(--text-sub);
+      font-size: 11px;
+      margin-right: 4px;
+      margin-top: 2px;
+    }
+
+    ul {
+      padding-left: 18px;
+      margin: 4px 0 8px;
+    }
+
+    li {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+
+    .divider {
+      border-top: 1px dashed #d2e6ff;
+      margin: 10px 0;
+    }
+
+    .time-block {
+      margin-bottom: 6px;
+    }
+
+    .time-label {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--primary);
+      display: inline-block;
+      min-width: 56px;
+    }
+
+    code {
+      font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,
+        "Liberation Mono", "Courier New", monospace;
+      font-size: 12px;
+      background: #f4f7fb;
+      padding: 2px 5px;
+      border-radius: 4px;
+    }
+
+    a {
+      color: var(--primary);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .panel {
+        padding: 16px 14px 14px;
+      }
+      h1 {
+        font-size: 22px;
+      }
+      .panel-title {
+        font-size: 17px;
+      }
+    }
   </style>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="ko"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;2025 삿포로 3박 4일 플래너&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0" /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg: #e6f4ff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--bg-alt: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--primary: #3ba4ff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--primary-soft: #e0f2ff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--accent: #ffb347;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text-main: #16324f;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--text-sub: #506680;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--border-soft: #c9e3ff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--shadow-soft: 0 10px 25px rgba(15, 76, 129, 0.12);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--radius-lg: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>--radius-pill: 999px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>* {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-sizing: border-box;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",</p>
-<p class="p1"><span class="Apple-converted-space">        </span>sans-serif;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(180deg, #dff2ff 0%, #f5fbff 40%, #ffffff 100%);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-main);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.6;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.page {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 900px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 24px 16px 56px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-align: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.title-pill {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 6px 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: var(--radius-pill);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border-soft);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 26px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 4px 0 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.subtitle {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* 탭 네비게이션 */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tab-bar {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>position: sticky;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>top: 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>z-index: 10;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(10px);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(</p>
-<p class="p1"><span class="Apple-converted-space">        </span>90deg,</p>
-<p class="p1"><span class="Apple-converted-space">        </span>rgba(230, 244, 255, 0.92),</p>
-<p class="p1"><span class="Apple-converted-space">        </span>rgba(239, 248, 255, 0.96)</p>
-<p class="p1"><span class="Apple-converted-space">      </span>);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 10px 0 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 20px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tab-bar-inner {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>max-width: 900px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 0 16px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>overflow-x: auto;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tab-link {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>flex: 0 0 auto;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 6px 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: var(--radius-pill);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid transparent;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.9);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>white-space: nowrap;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>transition: all 0.18s ease;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tab-link span.emoji {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tab-link:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tab-link.primary {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: #ffffff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>/* 패널 카드 */</p>
-<p class="p1"><span class="Apple-converted-space">    </span>section {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 24px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.panel {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--bg-alt);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: var(--radius-lg);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 20px 18px 18px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow-soft);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(255, 255, 255, 0.6);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.panel-header {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: baseline;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 10px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.panel-emoji {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 22px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.panel-title {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.panel-date {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.pill-label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-flex;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>gap: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 4px 10px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: var(--radius-pill);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: var(--primary-soft);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 4px 0 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h3 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 15px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 14px 0 6px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>h4 {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 10px 0 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>p {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 3px 0;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.tag {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 2px 8px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: var(--radius-pill);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #eef7ff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 11px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-right: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-top: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>ul {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding-left: 18px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 4px 0 8px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>li {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 2px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.divider {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px dashed #d2e6ff;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin: 10px 0;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.time-block {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 6px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>.time-label {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 600;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>display: inline-block;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>min-width: 56px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>code {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-family: "SF Mono", ui-monospace, Menlo, Monaco, Consolas,</p>
-<p class="p1"><span class="Apple-converted-space">        </span>"Liberation Mono", "Courier New", monospace;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>background: #f4f7fb;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>padding: 2px 5px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 4px;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>a {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>color: var(--primary);</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: none;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>a:hover {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>text-decoration: underline;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 600px) {</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.panel {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>padding: 16px 14px 14px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>h1 {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>font-size: 22px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">      </span>.panel-title {</p>
-<p class="p1"><span class="Apple-converted-space">        </span>font-size: 17px;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>}</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- 상단 타이틀 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;header&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="title-pill"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;✈️&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;2025 Sapporo Trip · 3박 4일&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;삿포로 3박 4일 일정 플래너&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p class="subtitle"&gt;밝고 여유롭게, 눈·온천·맛집·쇼핑까지 한 번에 💙&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- 탭 네비게이션 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;nav class="tab-bar"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="tab-bar-inner"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="#summary" class="tab-link primary"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="emoji"&gt;📌&lt;/span&gt;&lt;span&gt;요약&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="#day1" class="tab-link"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="emoji"&gt;1️⃣&lt;/span&gt;&lt;span&gt;Day 1 · 오타루&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="#day2" class="tab-link"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="emoji"&gt;2️⃣&lt;/span&gt;&lt;span&gt;Day 2 · 비에이&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="#day3" class="tab-link"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="emoji"&gt;3️⃣&lt;/span&gt;&lt;span&gt;Day 3 · 시내 &amp; 료칸&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;a href="#day4" class="tab-link"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="emoji"&gt;4️⃣&lt;/span&gt;&lt;span&gt;Day 4 · 귀국&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/nav&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="page"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- 요약 패널 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="summary"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="panel-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="panel-emoji"&gt;📌&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-title"&gt;여행 요약&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-date"&gt;2025년 12월 21일 ~ 24일 · 3박 4일&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;✈️ 항공편&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;가는 편 · 12/21(일)&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;ZE621 · 이스타항공&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;인천(ICN) &lt;strong&gt;07:40&lt;/strong&gt; → 신치토세(CTS) &lt;strong&gt;10:20&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;위탁 수하물 15kg 1개 포함&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;오는 편 · 12/24(수)&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;ZE624 · 이스타항공&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;신치토세(CTS) &lt;strong&gt;18:05&lt;/strong&gt; → 인천(ICN) &lt;strong&gt;21:20&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;출국 수속 후 공항 면세 쇼핑 여유&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🏨 숙박&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;12/21(일) ~ 12/23(화) · 2박&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;&lt;strong&gt;호텔 라이포트 삿포로 (Hotel Lifort Sapporo)&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;트윈룸 · 조식 포함&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;체크인 15:00 / 체크아웃 11:00&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;주소: 1 Chome-1-30 Minami 10 Jonishi, Chuo Ward, Sapporo&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;나카지마공원 근처, 지하철·도보 이동 편리&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;12/23(화) ~ 12/24(수) · 1박&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;&lt;strong&gt;미도리노카제 리조트 기타유자와 (Midorinokaze Resort Kitayuzawa)&lt;/strong&gt;&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;조식 &amp; 석식 포함 · 온천 료칸&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;체크인 15:00 / 체크아웃 10:00&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;주소: 300-2 Kitayuzawa Onsencho, Date&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;왕복 셔틀 포함</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;12/23(화) 13:30 · 삿포로역 북쪽 출구 출발 → 료칸&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;12/24(수) 10:00 · 료칸 출발 → 삿포로역 (약 2시간)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;참고 후기:</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://m.blog.naver.com/eunjeong-choi/224044968452" target="_blank"&gt;후기 1&lt;/a&gt;,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://m.blog.naver.com/april_behind/224062099615" target="_blank"&gt;후기 2&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚆 JR &amp; 교통&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;JR / 주요 이동&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;&lt;strong&gt;[12/21]&lt;/strong&gt; 신치토세공항 → 오타루&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>JR 쾌속 에어포트 · 10:50 출발 → 12:04 도착 (약 74분)&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>요금: &lt;strong&gt;약 JP¥ 2,880&lt;/strong&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;&lt;strong&gt;[12/22]&lt;/strong&gt; 비에이 눈꽃 투어 (왕복 송영 포함)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;&lt;strong&gt;[12/23]&lt;/strong&gt; 삿포로 시내 ↔ 삿포로역 · 나카지마코엔역 지하철 이동&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>미도리노카제 셔틀 13:30 (삿포로역 북쪽 출구)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;&lt;strong&gt;[12/24]&lt;/strong&gt; 삿포로역 → 신치토세공항&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>JR 쾌속 에어포트 · 약 37~40분 · 요금: &lt;strong&gt;JP¥ 2,070&lt;/strong&gt;&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;캐리어 이동 &amp; 보관&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;&lt;strong&gt;Day 1&lt;/strong&gt; 신치토세 → 호텔 라이포트 삿포로&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>KKday 캐리어 이동 서비스 이용 · 약 23,415원&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;a href="https://www.kkday.com/ko/product/200343" target="_blank"&gt;예약 링크&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;&lt;strong&gt;Day 3&lt;/strong&gt; 삿포로역 코인락커/짐보관소 이용&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>쇼핑 &amp; 식사 동안 캐리어 보관&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛍 쇼핑 &amp; 포인트&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;Day 1 밤 · 메가 돈키호테 (스스키노/다누키코지)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;Day 2 · Sapporo PARCO (스타벅스 시티컵) + LOFT(MOYUK SAPPORO)&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;Day 3 · 스텔라플레이스 / JR 타워 쇼핑&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;Day 4 · 신치토세공항 면세 &amp; 라멘 도장&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🧳 준비물 체크&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;방한&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;두꺼운 패딩, 기모 이너&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;방수 부츠, 미끄럼 방지 밑창&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;장갑, 목도리, 비니&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;기타&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;핫팩 넉넉히&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;보조배터리, 여분 케이블&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;여권, 현금/카드, 포켓와이파이&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Day 1 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="day1"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="panel-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="panel-emoji"&gt;1️⃣&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-title"&gt;Day 1 · 인천 → 신치토세 → 오타루 → 삿포로&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-date"&gt;12/21 (일)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🌅 아침 · 출국&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;05:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>인천공항 도착 · 체크인 및 보안 검색</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;07:40&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>ZE621 이스타항공 출발 (인천 → 신치토세)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛬 일본 도착 &amp; 캐리어 이동&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:20&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>신치토세공항 도착</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>KKday 캐리어 이동 서비스 접수&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 신치토세공항 → 호텔 라이포트 삿포로&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· &lt;a href="https://www.kkday.com/ko/product/200343" target="_blank"&gt;상품 링크&lt;/a&gt; / 약 23,415원</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚆 오타루 이동&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:50&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>JR 쾌속 에어포트 탑승 (신치토세 → 오타루)&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>~ 12:04 오타루역 도착 (약 74분) · 요금 약 JP¥ 2,880</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🍣 오타루 · 점심 &amp; 산책&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;12:15&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>에다칸(Edakan) 카이센동 점심 (오타루역 도보 7분)&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 주소: 3 Chome-15-7 Inaho, Otaru, Hokkaido 047-0032&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 후기:</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;a href="https://blog.naver.com/nsj5653/224027520139" target="_blank"&gt;https://blog.naver.com/nsj5653/224027520139&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;13:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>오타루 운하 포토 타임 · 대표 포토 스팟에서 사진 촬영</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;14:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>오타루 오르골당 구경 (운하에서 도보 약 15분)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;15:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>LeTAO PATHOS 카페 (르타오 파토스) · 치즈케이크 &amp; 커피 타임</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;16:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>기타이치 유리 3호관 · 유리 공예품 구경 &amp; 소소한 쇼핑</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="tag"&gt;오타루 TMI&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;· HELLO WAGYU 금강고로케 간식으로 먹기 (바삭 + 촉촉)&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚆 오타루 → 삿포로&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;17:33&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>JR 쾌속 에어포트 (미나미오타루 → 삿포로)&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:08&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 도착</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🍶 저녁 · 이자카야 미츠하시&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:32&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 → 지하철 난보쿠선 승강장 이동 (도보 약 4분)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:36&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>난보쿠선 탑승 (삿포로 → 스스키노) · 약 3분 · 약 210엔</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:39&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>스스키노역 도착 · 도보 10분 이동</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:50&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>이자카야 미츠하시(Mitsuhashi) 저녁 식사&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 주소: 일본 〒064-0808 Hokkaido, Sapporo, Chuo Ward,&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&amp;nbsp;&amp;nbsp;Minami 8 Jonishi, 6 Chome−289-33 札幌ダイカンプラザ</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛒 밤 · 돈키호테 &amp; 체크인&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;21:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>메가 돈키호테 1차 쇼핑 (스스키노/다누키코지 인근)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;~22:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>호텔 라이포트 삿포로 도착 · 체크인 &amp; 취침</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Day 2 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="day2"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="panel-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="panel-emoji"&gt;2️⃣&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-title"&gt;Day 2 · 비에이 눈꽃 투어 &amp; 스스키노 야키니쿠&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-date"&gt;12/22 (월)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🌅 새벽 · 기상 &amp; 이동&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;05:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>기상 및 준비 · 방한복, 장갑·모자, 핫팩, 카메라, 보조배터리 챙기기</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;06:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>호텔 라이포트 삿포로 출발 · 나카지마코엔역까지 도보 약 6분 (350m)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;06:23&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>나카지마코엔역 → 난보쿠선(보통 아사부행) 탑승&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>스스키노 → 오도리 → 삿포로 (3정거장, 약 5분)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;06:28&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 도착</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;06:31&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 북쪽 출구(North Exit)까지 도보 이동 (약 3분, 300m)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚌 비에이 눈꽃 투어&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;07:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 북쪽 출구 집합</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;07:10&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>비에이 눈꽃 투어 버스 출발 (총 10시간 50분 일정)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h3&gt;주요 코스&lt;/h3&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;ul&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;크리스마스트리 · 겨울 대표 포토 스팟&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;탁신관(拓真館) · 설경 감상&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;흰수염폭포(Shirohige Falls) · 코발트 블루 폭포&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;비에이역 · 점심: 키잔(きざん) 스프카레 맛집&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>· 후기: &lt;a href="https://blog.naver.com/hungryroad/224077749212" target="_blank"&gt;https://blog.naver.com/hungryroad/224077749212&lt;/a&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;세븐스타 나무 전망 포인트&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;li&gt;닝구르테라스 · 눈 내린 숲길 감성 포토존&lt;/li&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/ul&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚐 투어 종료 &amp; 스스키노 도착&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>스스키노역 하차 · 투어 종료&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 나카상과 인증샷 📸</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🌲 오도리 공원 산책&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:00 ~ 19:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>스스키노역에서 오도리 공원까지 도보 이동 (10~12분)&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 주소: 일본 〒060-0042 Hokkaido, Sapporo, Chuo Ward, Odorinishi, 1〜12丁目&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 겨울 야경, 트리, 눈 풍경 즐기기 · 포토존에서 사진 촬영</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛍 PARCO &amp; LOFT 쇼핑&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;19:30 ~ 20:45&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>Sapporo PARCO + LOFT(MOYUK SAPPORO 3F) 통합 쇼핑</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h4&gt;① Sapporo PARCO&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;· 주소: 일본 〒060-0061 Hokkaido, Sapporo, Chuo Ward, Minami 1 Jonishi, 3 Chome−3&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;· 스타벅스 시티컵(머그/텀블러) 구입&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;h4&gt;② LOFT / MOYUK SAPPORO 3F&lt;/h4&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;· 주소: 일본 〒060-0062 Hokkaido, Sapporo, Chuo Ward, Minami 2 Jonishi, 3 Chome−20 モユクサッポロ 3階&lt;/p&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;· 문구·잡화·기념품 쇼핑 · PARCO에서 도보 3~4분&lt;/p&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🍖 야키니쿠 츠바메&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;20:45 ~ 21:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>LOFT → 야키니쿠 츠바메까지 도보 약 7~8분</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;21:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>야키니쿠 츠바메(Tsubame) 저녁 식사&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 주소: 일본 〒060-0063 Hokkaido, Sapporo, Chuo Ward,&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&amp;nbsp;&amp;nbsp;Minami 3 Jonishi, 3 Chome−8−8 克美ビル 3階</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🌙 숙소 복귀&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;22:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>츠바메 → 호텔 라이포트 삿포로 · 도보 약 17분&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>지하철 탑승 없이 천천히 걸어가며 야경 보며 귀가</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Day 3 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="day3"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="panel-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="panel-emoji"&gt;3️⃣&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-title"&gt;Day 3 · 삿포로 시내 &amp; 스텔라플레이스 → 미도리노카제&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-date"&gt;12/23 (화)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🌅 아침 · 체크아웃 준비&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;09:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>기상 · 짐 정리 · 체크아웃 준비</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>호텔 라이포트 삿포로 체크아웃</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚇 삿포로역 이동 &amp; 캐리어 보관&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:03&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>호텔 출발 → 나카지마코엔역까지 도보 약 6분 (350m)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:09&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>나카지마코엔역 도착 · 난보쿠선(보통 아사부행) 탑승&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 스스키노 → 오도리 → 삿포로 (약 5분)&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 요금: 약 210엔</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:14&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 도착</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:17&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 코인락커/짐보관소에 캐리어 보관&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 대형 락커 기준 약 500~900엔</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛍 삿포로역 주변 쇼핑&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:30 ~ 11:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>에스타 / 아피아 / 파세오 일대 가볍게 쇼핑 · 간단 구경</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🍣 스텔라플레이스 점심&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;11:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>스텔라플레이스 센터 6층 이동&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>잇핀(IPPIN) 스텔라플레이스점에서 점심&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 해산물덮밥 및 가정식 스타일 메뉴</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛍 JR 타워 쇼핑&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;11:40 ~ 12:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>스텔라플레이스 / JR 타워 상점가 돌아보기&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 화장품, 문구, 패션, 기념품 등 자유 쇼핑</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚶‍♂️ 셔틀 준비&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;12:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>스텔라플레이스 → 삿포로역 북쪽 출구로 이동 (도보 약 10분)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚌 료칸 이동&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;13:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 북쪽 출구 → 미도리노카제 셔틀 출발</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;14:40&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>미도리노카제 리조트 도착</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🏨 체크인 &amp; 온천&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;15:00~&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>체크인 · 객실 정리 후 휴식</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;16:00~&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>대욕장 &amp; 노천탕 이용 · 눈 오는 풍경이 포인트</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🍱 석식 &amp; 힐링&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:00~&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>료칸 가이세키 석식 (식사 시간은 체크인 시 안내)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;20:00~&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>온천 2차 또는 로비·휴게 공간에서 휴식 · 일찍 취침</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Day 4 --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;section id="day4"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="panel"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="panel-header"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="panel-emoji"&gt;4️⃣&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-title"&gt;Day 4 · 미도리노카제 → 삿포로역 → 신치토세공항 → 인천&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="panel-date"&gt;12/24 (수)&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🌅 아침 · 체크아웃 준비&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;07:30 ~ 09:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>조식 &amp; 마지막 온천(시간 여유 시) · 짐 정리</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;10:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>미도리노카제 체크아웃 &amp; 셔틀버스 출발&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 료칸 → 삿포로역까지 약 2시간 소요</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚇 삿포로역 도착 &amp; 캐리어 보관&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;12:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 도착 · 역 내 코인락커/짐보관소에 캐리어 보관</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛍 마지막 시내 쇼핑 &amp; 점심&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;12:00 ~ 14:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>에스타 / 파세오 / 아피아 등 삿포로역 쇼핑몰 둘러보기&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 간단 점심 &amp; 간식 · 마지막 기념품 구매</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🚆 공항 이동 · JR 쾌속 에어포트&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;14:00&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>삿포로역 → 신치토세공항행 JR 쾌속 에어포트 탑승&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 약 37~40분 소요 · 요금: 약 JP¥ 2,070</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;14:40&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>신치토세공항 도착</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;🛄 체크인 &amp; 공항 쇼핑&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;14:40 ~ 15:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>이스타항공 체크인 · 수하물 위탁 · 출국 심사 &amp; 보안 검색</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;15:30 ~ 17:30&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>공항 면세 &amp; 식사&lt;br /&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>· 라멘 도장, 푸드코트, 카페, 로이스(ROYCE’), 홋카이도 기념품 등</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pill-label"&gt;✈️ 귀국&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;18:05&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>ZE624 이스타항공 출발 (신치토세 → 인천)</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="time-block"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="time-label"&gt;21:20&lt;/span&gt;</p>
-<p class="p1"><span class="Apple-converted-space">          </span>인천공항 도착 · 입국 수속 후 귀가</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
-<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
+  <!-- 상단 타이틀 -->
+  <header>
+    <div class="title-pill">
+      <span>✈️</span>
+      <span>2025 Sapporo Trip · 3박 4일</span>
+    </div>
+    <h1>삿포로 3박 4일 일정 플래너</h1>
+    <p class="subtitle">밝고 여유롭게, 눈·온천·맛집·쇼핑까지 한 번에 💙</p>
+  </header>
+
+  <!-- 탭 네비게이션 -->
+  <nav class="tab-bar">
+    <div class="tab-bar-inner">
+      <a href="#summary" class="tab-link primary">
+        <span class="emoji">📌</span><span>요약</span>
+      </a>
+      <a href="#day1" class="tab-link">
+        <span class="emoji">1️⃣</span><span>Day 1 · 오타루</span>
+      </a>
+      <a href="#day2" class="tab-link">
+        <span class="emoji">2️⃣</span><span>Day 2 · 비에이</span>
+      </a>
+      <a href="#day3" class="tab-link">
+        <span class="emoji">3️⃣</span><span>Day 3 · 시내 & 료칸</span>
+      </a>
+      <a href="#day4" class="tab-link">
+        <span class="emoji">4️⃣</span><span>Day 4 · 귀국</span>
+      </a>
+    </div>
+  </nav>
+
+  <main class="page">
+    <!-- 요약 패널 -->
+    <section id="summary">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-emoji">📌</div>
+          <div>
+            <div class="panel-title">여행 요약</div>
+            <div class="panel-date">2025년 12월 21일 ~ 24일 · 3박 4일</div>
+          </div>
+        </div>
+
+        <div class="pill-label">✈️ 항공편</div>
+        <h3>가는 편 · 12/21(일)</h3>
+        <p>ZE621 · 이스타항공</p>
+        <p>인천(ICN) <strong>07:40</strong> → 신치토세(CTS) <strong>10:20</strong></p>
+        <p>위탁 수하물 15kg 1개 포함</p>
+
+        <h3>오는 편 · 12/24(수)</h3>
+        <p>ZE624 · 이스타항공</p>
+        <p>신치토세(CTS) <strong>18:05</strong> → 인천(ICN) <strong>21:20</strong></p>
+        <p>출국 수속 후 공항 면세 쇼핑 여유</p>
+
+        <div class="pill-label">🏨 숙박</div>
+        <h3>12/21(일) ~ 12/23(화) · 2박</h3>
+        <p><strong>호텔 라이포트 삿포로 (Hotel Lifort Sapporo)</strong></p>
+        <ul>
+          <li>트윈룸 · 조식 포함</li>
+          <li>체크인 15:00 / 체크아웃 11:00</li>
+          <li>주소: 1 Chome-1-30 Minami 10 Jonishi, Chuo Ward, Sapporo</li>
+          <li>나카지마공원 근처, 지하철·도보 이동 편리</li>
+        </ul>
+
+        <h3>12/23(화) ~ 12/24(수) · 1박</h3>
+        <p><strong>미도리노카제 리조트 기타유자와 (Midorinokaze Resort Kitayuzawa)</strong></p>
+        <ul>
+          <li>조식 & 석식 포함 · 온천 료칸</li>
+          <li>체크인 15:00 / 체크아웃 10:00</li>
+          <li>주소: 300-2 Kitayuzawa Onsencho, Date</li>
+          <li>왕복 셔틀 포함
+            <ul>
+              <li>12/23(화) 13:30 · 삿포로역 북쪽 출구 출발 → 료칸</li>
+              <li>12/24(수) 10:00 · 료칸 출발 → 삿포로역 (약 2시간)</li>
+            </ul>
+          </li>
+          <li>참고 후기:
+            <a href="https://m.blog.naver.com/eunjeong-choi/224044968452" target="_blank">후기 1</a>,
+            <a href="https://m.blog.naver.com/april_behind/224062099615" target="_blank">후기 2</a>
+          </li>
+        </ul>
+
+        <div class="pill-label">🚆 JR & 교통</div>
+        <h3>JR / 주요 이동</h3>
+        <ul>
+          <li><strong>[12/21]</strong> 신치토세공항 → 오타루<br />
+            JR 쾌속 에어포트 · 10:50 출발 → 12:04 도착 (약 74분)<br />
+            요금: <strong>약 JP¥ 2,880</strong>
+          </li>
+          <li><strong>[12/22]</strong> 비에이 눈꽃 투어 (왕복 송영 포함)</li>
+          <li><strong>[12/23]</strong> 삿포로 시내 ↔ 삿포로역 · 나카지마코엔역 지하철 이동<br />
+            미도리노카제 셔틀 13:30 (삿포로역 북쪽 출구)</li>
+          <li><strong>[12/24]</strong> 삿포로역 → 신치토세공항<br />
+            JR 쾌속 에어포트 · 약 37~40분 · 요금: <strong>JP¥ 2,070</strong></li>
+        </ul>
+
+        <h3>캐리어 이동 & 보관</h3>
+        <ul>
+          <li><strong>Day 1</strong> 신치토세 → 호텔 라이포트 삿포로<br />
+            KKday 캐리어 이동 서비스 이용 · 약 23,415원<br />
+            <a href="https://www.kkday.com/ko/product/200343" target="_blank">예약 링크</a>
+          </li>
+          <li><strong>Day 3</strong> 삿포로역 코인락커/짐보관소 이용<br />
+            쇼핑 & 식사 동안 캐리어 보관</li>
+        </ul>
+
+        <div class="pill-label">🛍 쇼핑 & 포인트</div>
+        <ul>
+          <li>Day 1 밤 · 메가 돈키호테 (스스키노/다누키코지)</li>
+          <li>Day 2 · Sapporo PARCO (스타벅스 시티컵) + LOFT(MOYUK SAPPORO)</li>
+          <li>Day 3 · 스텔라플레이스 / JR 타워 쇼핑</li>
+          <li>Day 4 · 신치토세공항 면세 & 라멘 도장</li>
+        </ul>
+
+        <div class="pill-label">🧳 준비물 체크</div>
+        <h3>방한</h3>
+        <ul>
+          <li>두꺼운 패딩, 기모 이너</li>
+          <li>방수 부츠, 미끄럼 방지 밑창</li>
+          <li>장갑, 목도리, 비니</li>
+        </ul>
+        <h3>기타</h3>
+        <ul>
+          <li>핫팩 넉넉히</li>
+          <li>보조배터리, 여분 케이블</li>
+          <li>여권, 현금/카드, 포켓와이파이</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Day 1 -->
+    <section id="day1">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-emoji">1️⃣</div>
+          <div>
+            <div class="panel-title">Day 1 · 인천 → 신치토세 → 오타루 → 삿포로</div>
+            <div class="panel-date">12/21 (일)</div>
+          </div>
+        </div>
+
+        <div class="pill-label">🌅 아침 · 출국</div>
+        <div class="time-block">
+          <span class="time-label">05:00</span>
+          인천공항 도착 · 체크인 및 보안 검색
+        </div>
+        <div class="time-block">
+          <span class="time-label">07:40</span>
+          ZE621 이스타항공 출발 (인천 → 신치토세)
+        </div>
+
+        <div class="pill-label">🛬 일본 도착 & 캐리어 이동</div>
+        <div class="time-block">
+          <span class="time-label">10:20</span>
+          신치토세공항 도착
+        </div>
+        <div class="time-block">
+          <span class="time-label">10:30</span>
+          KKday 캐리어 이동 서비스 접수<br />
+          · 신치토세공항 → 호텔 라이포트 삿포로<br />
+          · <a href="https://www.kkday.com/ko/product/200343" target="_blank">상품 링크</a> / 약 23,415원
+        </div>
+
+        <div class="pill-label">🚆 오타루 이동</div>
+        <div class="time-block">
+          <span class="time-label">10:50</span>
+          JR 쾌속 에어포트 탑승 (신치토세 → 오타루)<br />
+          ~ 12:04 오타루역 도착 (약 74분) · 요금 약 JP¥ 2,880
+        </div>
+
+        <div class="pill-label">🍣 오타루 · 점심 & 산책</div>
+        <div class="time-block">
+          <span class="time-label">12:15</span>
+          에다칸(Edakan) 카이센동 점심 (오타루역 도보 7분)<br />
+          · 주소: 3 Chome-15-7 Inaho, Otaru, Hokkaido 047-0032<br />
+          · 후기:
+          <a href="https://blog.naver.com/nsj5653/224027520139" target="_blank">https://blog.naver.com/nsj5653/224027520139</a>
+        </div>
+        <div class="time-block">
+          <span class="time-label">13:00</span>
+          오타루 운하 포토 타임 · 대표 포토 스팟에서 사진 촬영
+        </div>
+        <div class="time-block">
+          <span class="time-label">14:00</span>
+          오타루 오르골당 구경 (운하에서 도보 약 15분)
+        </div>
+        <div class="time-block">
+          <span class="time-label">15:30</span>
+          LeTAO PATHOS 카페 (르타오 파토스) · 치즈케이크 & 커피 타임
+        </div>
+        <div class="time-block">
+          <span class="time-label">16:30</span>
+          기타이치 유리 3호관 · 유리 공예품 구경 & 소소한 쇼핑
+        </div>
+        <p class="tag">오타루 TMI</p>
+        <p>· HELLO WAGYU 금강고로케 간식으로 먹기 (바삭 + 촉촉)</p>
+
+        <div class="pill-label">🚆 오타루 → 삿포로</div>
+        <div class="time-block">
+          <span class="time-label">17:33</span>
+          JR 쾌속 에어포트 (미나미오타루 → 삿포로)<br />
+          <span class="time-label">18:08</span>
+          삿포로역 도착
+        </div>
+
+        <div class="pill-label">🍶 저녁 · 이자카야 미츠하시</div>
+        <div class="time-block">
+          <span class="time-label">18:32</span>
+          삿포로역 → 지하철 난보쿠선 승강장 이동 (도보 약 4분)
+        </div>
+        <div class="time-block">
+          <span class="time-label">18:36</span>
+          난보쿠선 탑승 (삿포로 → 스스키노) · 약 3분 · 약 210엔
+        </div>
+        <div class="time-block">
+          <span class="time-label">18:39</span>
+          스스키노역 도착 · 도보 10분 이동
+        </div>
+        <div class="time-block">
+          <span class="time-label">18:50</span>
+          이자카야 미츠하시(Mitsuhashi) 저녁 식사<br />
+          · 주소: 일본 〒064-0808 Hokkaido, Sapporo, Chuo Ward,<br />
+          &nbsp;&nbsp;Minami 8 Jonishi, 6 Chome−289-33 札幌ダイカンプラザ
+        </div>
+
+        <div class="pill-label">🛒 밤 · 돈키호테 & 체크인</div>
+        <div class="time-block">
+          <span class="time-label">21:00</span>
+          메가 돈키호테 1차 쇼핑 (스스키노/다누키코지 인근)
+        </div>
+        <div class="time-block">
+          <span class="time-label">~22:00</span>
+          호텔 라이포트 삿포로 도착 · 체크인 & 취침
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 2 -->
+    <section id="day2">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-emoji">2️⃣</div>
+          <div>
+            <div class="panel-title">Day 2 · 비에이 눈꽃 투어 & 스스키노 야키니쿠</div>
+            <div class="panel-date">12/22 (월)</div>
+          </div>
+        </div>
+
+        <div class="pill-label">🌅 새벽 · 기상 & 이동</div>
+        <div class="time-block">
+          <span class="time-label">05:00</span>
+          기상 및 준비 · 방한복, 장갑·모자, 핫팩, 카메라, 보조배터리 챙기기
+        </div>
+        <div class="time-block">
+          <span class="time-label">06:00</span>
+          호텔 라이포트 삿포로 출발 · 나카지마코엔역까지 도보 약 6분 (350m)
+        </div>
+        <div class="time-block">
+          <span class="time-label">06:23</span>
+          나카지마코엔역 → 난보쿠선(보통 아사부행) 탑승<br />
+          스스키노 → 오도리 → 삿포로 (3정거장, 약 5분)
+        </div>
+        <div class="time-block">
+          <span class="time-label">06:28</span>
+          삿포로역 도착
+        </div>
+        <div class="time-block">
+          <span class="time-label">06:31</span>
+          삿포로역 북쪽 출구(North Exit)까지 도보 이동 (약 3분, 300m)
+        </div>
+
+        <div class="pill-label">🚌 비에이 눈꽃 투어</div>
+        <div class="time-block">
+          <span class="time-label">07:00</span>
+          삿포로역 북쪽 출구 집합
+        </div>
+        <div class="time-block">
+          <span class="time-label">07:10</span>
+          비에이 눈꽃 투어 버스 출발 (총 10시간 50분 일정)
+        </div>
+        <h3>주요 코스</h3>
+        <ul>
+          <li>크리스마스트리 · 겨울 대표 포토 스팟</li>
+          <li>탁신관(拓真館) · 설경 감상</li>
+          <li>흰수염폭포(Shirohige Falls) · 코발트 블루 폭포</li>
+          <li>비에이역 · 점심: 키잔(きざん) 스프카레 맛집<br />
+            · 후기: <a href="https://blog.naver.com/hungryroad/224077749212" target="_blank">https://blog.naver.com/hungryroad/224077749212</a>
+          </li>
+          <li>세븐스타 나무 전망 포인트</li>
+          <li>닝구르테라스 · 눈 내린 숲길 감성 포토존</li>
+        </ul>
+
+        <div class="pill-label">🚐 투어 종료 & 스스키노 도착</div>
+        <div class="time-block">
+          <span class="time-label">18:00</span>
+          스스키노역 하차 · 투어 종료<br />
+          · 나카상과 인증샷 📸
+        </div>
+
+        <div class="pill-label">🌲 오도리 공원 산책</div>
+        <div class="time-block">
+          <span class="time-label">18:00 ~ 19:30</span>
+          스스키노역에서 오도리 공원까지 도보 이동 (10~12분)<br />
+          · 주소: 일본 〒060-0042 Hokkaido, Sapporo, Chuo Ward, Odorinishi, 1〜12丁目<br />
+          · 겨울 야경, 트리, 눈 풍경 즐기기 · 포토존에서 사진 촬영
+        </div>
+
+        <div class="pill-label">🛍 PARCO & LOFT 쇼핑</div>
+        <div class="time-block">
+          <span class="time-label">19:30 ~ 20:45</span>
+          Sapporo PARCO + LOFT(MOYUK SAPPORO 3F) 통합 쇼핑
+        </div>
+        <h4>① Sapporo PARCO</h4>
+        <p>· 주소: 일본 〒060-0061 Hokkaido, Sapporo, Chuo Ward, Minami 1 Jonishi, 3 Chome−3</p>
+        <p>· 스타벅스 시티컵(머그/텀블러) 구입</p>
+
+        <h4>② LOFT / MOYUK SAPPORO 3F</h4>
+        <p>· 주소: 일본 〒060-0062 Hokkaido, Sapporo, Chuo Ward, Minami 2 Jonishi, 3 Chome−20 モユクサッポロ 3階</p>
+        <p>· 문구·잡화·기념품 쇼핑 · PARCO에서 도보 3~4분</p>
+
+        <div class="pill-label">🍖 야키니쿠 츠바메</div>
+        <div class="time-block">
+          <span class="time-label">20:45 ~ 21:00</span>
+          LOFT → 야키니쿠 츠바메까지 도보 약 7~8분
+        </div>
+        <div class="time-block">
+          <span class="time-label">21:00</span>
+          야키니쿠 츠바메(Tsubame) 저녁 식사<br />
+          · 주소: 일본 〒060-0063 Hokkaido, Sapporo, Chuo Ward,<br />
+          &nbsp;&nbsp;Minami 3 Jonishi, 3 Chome−8−8 克美ビル 3階
+        </div>
+
+        <div class="pill-label">🌙 숙소 복귀</div>
+        <div class="time-block">
+          <span class="time-label">22:00</span>
+          츠바메 → 호텔 라이포트 삿포로 · 도보 약 17분<br />
+          지하철 탑승 없이 천천히 걸어가며 야경 보며 귀가
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 3 -->
+    <section id="day3">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-emoji">3️⃣</div>
+          <div>
+            <div class="panel-title">Day 3 · 삿포로 시내 & 스텔라플레이스 → 미도리노카제</div>
+            <div class="panel-date">12/23 (화)</div>
+          </div>
+        </div>
+
+        <div class="pill-label">🌅 아침 · 체크아웃 준비</div>
+        <div class="time-block">
+          <span class="time-label">09:00</span>
+          기상 · 짐 정리 · 체크아웃 준비
+        </div>
+        <div class="time-block">
+          <span class="time-label">10:00</span>
+          호텔 라이포트 삿포로 체크아웃
+        </div>
+
+        <div class="pill-label">🚇 삿포로역 이동 & 캐리어 보관</div>
+        <div class="time-block">
+          <span class="time-label">10:03</span>
+          호텔 출발 → 나카지마코엔역까지 도보 약 6분 (350m)
+        </div>
+        <div class="time-block">
+          <span class="time-label">10:09</span>
+          나카지마코엔역 도착 · 난보쿠선(보통 아사부행) 탑승<br />
+          · 스스키노 → 오도리 → 삿포로 (약 5분)<br />
+          · 요금: 약 210엔
+        </div>
+        <div class="time-block">
+          <span class="time-label">10:14</span>
+          삿포로역 도착
+        </div>
+        <div class="time-block">
+          <span class="time-label">10:17</span>
+          삿포로역 코인락커/짐보관소에 캐리어 보관<br />
+          · 대형 락커 기준 약 500~900엔
+        </div>
+
+        <div class="pill-label">🛍 삿포로역 주변 쇼핑</div>
+        <div class="time-block">
+          <span class="time-label">10:30 ~ 11:00</span>
+          에스타 / 아피아 / 파세오 일대 가볍게 쇼핑 · 간단 구경
+        </div>
+
+        <div class="pill-label">🍣 스텔라플레이스 점심</div>
+        <div class="time-block">
+          <span class="time-label">11:00</span>
+          스텔라플레이스 센터 6층 이동<br />
+          잇핀(IPPIN) 스텔라플레이스점에서 점심<br />
+          · 해산물덮밥 및 가정식 스타일 메뉴
+        </div>
+
+        <div class="pill-label">🛍 JR 타워 쇼핑</div>
+        <div class="time-block">
+          <span class="time-label">11:40 ~ 12:30</span>
+          스텔라플레이스 / JR 타워 상점가 돌아보기<br />
+          · 화장품, 문구, 패션, 기념품 등 자유 쇼핑
+        </div>
+
+        <div class="pill-label">🚶‍♂️ 셔틀 준비</div>
+        <div class="time-block">
+          <span class="time-label">12:30</span>
+          스텔라플레이스 → 삿포로역 북쪽 출구로 이동 (도보 약 10분)
+        </div>
+
+        <div class="pill-label">🚌 료칸 이동</div>
+        <div class="time-block">
+          <span class="time-label">13:30</span>
+          삿포로역 북쪽 출구 → 미도리노카제 셔틀 출발
+        </div>
+        <div class="time-block">
+          <span class="time-label">14:40</span>
+          미도리노카제 리조트 도착
+        </div>
+
+        <div class="pill-label">🏨 체크인 & 온천</div>
+        <div class="time-block">
+          <span class="time-label">15:00~</span>
+          체크인 · 객실 정리 후 휴식
+        </div>
+        <div class="time-block">
+          <span class="time-label">16:00~</span>
+          대욕장 & 노천탕 이용 · 눈 오는 풍경이 포인트
+        </div>
+
+        <div class="pill-label">🍱 석식 & 힐링</div>
+        <div class="time-block">
+          <span class="time-label">18:00~</span>
+          료칸 가이세키 석식 (식사 시간은 체크인 시 안내)
+        </div>
+        <div class="time-block">
+          <span class="time-label">20:00~</span>
+          온천 2차 또는 로비·휴게 공간에서 휴식 · 일찍 취침
+        </div>
+      </div>
+    </section>
+
+    <!-- Day 4 -->
+    <section id="day4">
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-emoji">4️⃣</div>
+          <div>
+            <div class="panel-title">Day 4 · 미도리노카제 → 삿포로역 → 신치토세공항 → 인천</div>
+            <div class="panel-date">12/24 (수)</div>
+          </div>
+        </div>
+
+        <div class="pill-label">🌅 아침 · 체크아웃 준비</div>
+        <div class="time-block">
+          <span class="time-label">07:30 ~ 09:00</span>
+          조식 & 마지막 온천(시간 여유 시) · 짐 정리
+        </div>
+        <div class="time-block">
+          <span class="time-label">10:00</span>
+          미도리노카제 체크아웃 & 셔틀버스 출발<br />
+          · 료칸 → 삿포로역까지 약 2시간 소요
+        </div>
+
+        <div class="pill-label">🚇 삿포로역 도착 & 캐리어 보관</div>
+        <div class="time-block">
+          <span class="time-label">12:00</span>
+          삿포로역 도착 · 역 내 코인락커/짐보관소에 캐리어 보관
+        </div>
+
+        <div class="pill-label">🛍 마지막 시내 쇼핑 & 점심</div>
+        <div class="time-block">
+          <span class="time-label">12:00 ~ 14:00</span>
+          에스타 / 파세오 / 아피아 등 삿포로역 쇼핑몰 둘러보기<br />
+          · 간단 점심 & 간식 · 마지막 기념품 구매
+        </div>
+
+        <div class="pill-label">🚆 공항 이동 · JR 쾌속 에어포트</div>
+        <div class="time-block">
+          <span class="time-label">14:00</span>
+          삿포로역 → 신치토세공항행 JR 쾌속 에어포트 탑승<br />
+          · 약 37~40분 소요 · 요금: 약 JP¥ 2,070
+        </div>
+        <div class="time-block">
+          <span class="time-label">14:40</span>
+          신치토세공항 도착
+        </div>
+
+        <div class="pill-label">🛄 체크인 & 공항 쇼핑</div>
+        <div class="time-block">
+          <span class="time-label">14:40 ~ 15:30</span>
+          이스타항공 체크인 · 수하물 위탁 · 출국 심사 & 보안 검색
+        </div>
+        <div class="time-block">
+          <span class="time-label">15:30 ~ 17:30</span>
+          공항 면세 & 식사<br />
+          · 라멘 도장, 푸드코트, 카페, 로이스(ROYCE’), 홋카이도 기념품 등
+        </div>
+
+        <div class="pill-label">✈️ 귀국</div>
+        <div class="time-block">
+          <span class="time-label">18:05</span>
+          ZE624 이스타항공 출발 (신치토세 → 인천)
+        </div>
+        <div class="time-block">
+          <span class="time-label">21:20</span>
+          인천공항 도착 · 입국 수속 후 귀가
+        </div>
+      </div>
+    </section>
+  </main>
 </body>
 </html>
